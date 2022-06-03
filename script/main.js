@@ -18,8 +18,20 @@
 	]
 	*/
 
-	function changeBGImg() {
+	const imageNames = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
+	
+	function changeImageSet() {
 		gameBoard.style.backgroundImage = `url(images/backGround${this.dataset.bgref}.jpg)`;
+
+		let clickedThumb = this; // this is the element (thumbnail) we clicked on
+
+		// debugger; 
+		// this will pause code execution on this line. like pushing pause on Netflix / Amazon Prime
+
+		// update the draggable piece's src attribute one at a time
+		pzlPieces.forEach((piece, index) => {
+			piece.src = `images/${imageNames[index] + clickedThumb.dataset.bgref}.jpg`;
+		});
 	}
 
 	function allowDrag(event) {
@@ -48,7 +60,7 @@
 	// how to we want the user to interact with the elements that we collected earlier?
 	// events are things like clikcs, drags, double-clicks, keypresses... all the ways that a user can interact with a mouse, a keyboard etc
  
-	theThumbnails.forEach(image => image.addEventListener('click', changeBGImg));
+	theThumbnails.forEach(image => image.addEventListener('click', changeImageSet));
 	pzlPieces.forEach(piece => piece.addEventListener('dragstart', allowDrag));
 
 	// set up the drop zone event handling
